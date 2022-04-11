@@ -16,12 +16,14 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import DraftsIcon from "@mui/icons-material/Drafts";
-import DashboardContent from "@components/DashboardContent";
+import DashboardContent from "@/components/DashboardContent";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import BuildIcon from "@mui/icons-material/Build";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import MapIcon from "@mui/icons-material/Map";
 import { Link } from "react-router-dom";
+import { Login } from "@/components";
+import { AnimatePresence } from "framer-motion";
 
 const drawerWidth = 240;
 
@@ -91,6 +93,8 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export const Dashboard = () => {
+  const [loginPopup, setLoginPopup] = React.useState(false);
+
   const theme = useTheme();
   const [show, setShow] = React.useState("livraison");
 
@@ -121,9 +125,18 @@ export const Dashboard = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Atlastrip Ads Maker
-          </Typography>
+          <div className="flex w-full justify-between">
+            <Typography variant="h6" noWrap component="div">
+              Atlastrip Ads Maker
+            </Typography>
+
+            <button
+              onClick={() => setLoginPopup(true)}
+              className="bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            >
+              Login
+            </button>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -134,7 +147,7 @@ export const Dashboard = () => {
         </DrawerHeader>
         <Divider />
         <List>
-        {[ "Magic search", "Options"].map((text, index) => (
+          {["Magic search", "Options", "Editor"].map((text, index) => (
             <Link to={`/${text}`}>
               <ListItem
                 onClick={() => {
@@ -150,9 +163,7 @@ export const Dashboard = () => {
                     <AutoFixHighIcon />
                   ) : index == 1 ? (
                     <BuildIcon />
-                  ) : (
-                   null
-                  )}
+                  ) : null}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
@@ -180,13 +191,13 @@ export const Dashboard = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
+        <AnimatePresence>{loginPopup && <Login 
+        
+        setLoginPopup={setLoginPopup}
+        />}</AnimatePresence>
         <div className="max-w-[90vw]">
           <DashboardContent show={show} />
-          <DashboardContent show={show} />
-          <DashboardContent show={show} />
-          <DashboardContent show={show} />
         </div>
-        
       </Box>
     </Box>
   );

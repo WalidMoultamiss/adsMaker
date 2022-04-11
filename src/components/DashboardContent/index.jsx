@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "@components";
+import { Card } from "@/components";
 import { motion } from "framer-motion";
 
 const item = {

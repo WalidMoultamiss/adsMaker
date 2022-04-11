@@ -22,8 +22,9 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import MapIcon from "@mui/icons-material/Map";
 import HomeIcon from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
-import { ComponentsHolder } from "@components";
+import { ComponentsHolder } from "@/components";
 import { gql, useQuery } from "@apollo/client";
+import {motion} from "framer-motion";
 
 const drawerWidth = 240;
 
@@ -35,6 +36,7 @@ const openedMixin = (theme) => ({
   }),
   overflowX: "hidden",
 });
+
 
 const closedMixin = (theme) => ({
   transition: theme.transitions.create("width", {
@@ -98,23 +100,6 @@ export const Editor = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const getAllAds = gql`
-    query Query {
-      getAllUsers {
-        id
-        firstName
-        lastName
-      }
-    }
-  `;
-
-  const { loading, error,  data } = useQuery(getAllAds);
-
-
-
-  React.useEffect(() => {
-    console.log(data?.getAllUsers);
-  }, [data]);
 
 
   const handleDrawerOpen = () => {
@@ -132,6 +117,16 @@ export const Editor = () => {
 
   return (
     <Box sx={{ display: "flex" }}>
+      <div className="fixed top-0 left-0 w-screen h-screen z-[10000000] bg-white flex flex-col justify-center items-center text-3xl p-10 font-extrabold md:hidden">
+        <span>Sorry this page is not available on mobile devices.</span>
+        {/* back to home */}
+        <Link to="/">
+          <motion.div 
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          className="mt-6 bg-blue-500 text-white p-3 px-5 rounded-md">Back to home</motion.div>
+        </Link>
+      </div>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -207,7 +202,7 @@ export const Editor = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <div className="max-w-[90vw]">
+        <div className="max-w-[90vw] overflow-hidden hidden md:block">
           <ComponentsHolder setScale={setScale} scale={scale} />
         </div>
       </Box>
