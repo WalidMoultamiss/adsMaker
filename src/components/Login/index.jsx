@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import { useOnClickOutside } from "@/hooks";
+import { useOnClickOutside } from "/src/Hooks/index.ts";
 import { AnimatePresence } from "framer-motion";
 import CircularProgress from "@mui/material/CircularProgress";
 
