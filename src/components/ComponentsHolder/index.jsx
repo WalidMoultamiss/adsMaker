@@ -10,6 +10,7 @@ import { IconButton, List, ListItemButton, ListItemText } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Box } from "@mui/system";
+import html2canvas from 'html2canvas';
 
 const item = {
   hidden: { y: 20, opacity: 0 },
@@ -86,6 +87,7 @@ export const ComponentsHolder = ({ children, setScale, scale }) => {
       const newUrl = URL.createObjectURL(newImage);
       imageComp.current.style.backgroundImage = `url(${newUrl})`;
     };
+
 
 
     return (
@@ -222,6 +224,26 @@ export const ComponentsHolder = ({ children, setScale, scale }) => {
       });
   }, [constraintsRef]);
 
+  const handleDownloadImage = async () => {
+    const element = constraintsRef.current;
+    const canvas = await html2canvas(element);
+
+    const data = canvas.toDataURL('image/jpg');
+    const link = document.createElement('a');
+
+    if (typeof link.download === 'string') {
+      link.href = data;
+      link.download = 'image.jpg';
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      window.open(data);
+    }
+  };
+
+
   const handleChangeImage = (e) => {
     const newImage = e.target.files[0];
     const newUrl = URL.createObjectURL(newImage);
@@ -299,7 +321,7 @@ export const ComponentsHolder = ({ children, setScale, scale }) => {
 
       <button
         className="absolute top-24 right-6 p-4 rounded-lg bg-blue-800 text-white"
-        onClick={onButtonClick}
+        onClick={()=>handleDownloadImage()}
       >
         Export
       </button>

@@ -378,7 +378,8 @@ export const DashboardOptions = ({
             fullWidth
             value={permis}
           />
-          <div className="w-full flex justify-end">
+          
+          <div className="w-full flex justify-end font-">
             <Button
               variant="contained"
               color="primary"
