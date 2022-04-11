@@ -31,15 +31,21 @@ export const Login = ({ setLoginPopup }) => {
         className="w-full relative max-w-sm bg-white rounded-lg shadow-lg overflow-hidden"
         ref={cardRef}
       >
+          <AnimatePresence>
+
         {atlastrip && (
-          <div className="absolute flex justify-center items-center top-0 left-0 rounded-md w-full h-full bg-green-900 bg-opacity-80 z-10">
+            <motion.div 
+            initial={{ opacity: 0, }}
+            animate={{ opacity: 1,  }}
+            className="absolute flex justify-center items-center top-0 left-0 rounded-md w-full h-full bg-green-900 bg-opacity-80 z-10">
             <CircularProgress
               sx={{
-                color: "white",
-              }}
-            />
-          </div>
+                  color: "white",
+                }}
+                />
+          </motion.div>
         )}
+        </AnimatePresence>
         <div className="rounded-xl bg-white shadow-xl ">
           <div className="p-6 sm:p-16">
             <div className="space-y-4">
@@ -74,7 +80,7 @@ export const Login = ({ setLoginPopup }) => {
               >
                 <div className="relative flex items-center space-x-4 justify-center">
                   <img
-                    src="/public/images/atlastripLogo.png"
+                    src="https://atlastripv2.vercel.app/_next/image?url=%2Fog.png&w=48&q=75"
                     className="rounded-full absolute left-0 w-5"
                     alt="Facebook logo"
                   />
