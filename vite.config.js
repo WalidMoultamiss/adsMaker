@@ -11,6 +11,6 @@ export default defineConfig({
     '@services': '/src/services',
     '@store': '/src/store.js',
     '@images': '/public/images',
-    "@/hooks": "/src/hooks/index.ts",
+    "@/hooks": "/src/Hooks/index.ts",
   },
 })
